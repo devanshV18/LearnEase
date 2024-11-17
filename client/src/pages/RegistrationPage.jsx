@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import regIllustration from "../assets/regIllustration.png"
+import regIllustration from "../assets/regIllustration.png";
+import { Link } from "react-router-dom";
 
 const useTypingEffect = (text, speed = 50) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -23,6 +24,18 @@ const useTypingEffect = (text, speed = 50) => {
 const RegistrationPage = () => {
   const [userType, setUserType] = useState('');
   const typedText = useTypingEffect("Your ultimate learning companion for students and professionals. Join us today and embark on a journey of effortless learning and growth.", 50);
+
+  const handleRegisterClick = (e) => {
+    e.preventDefault();
+    // Add registration logic here
+    console.log("Register button clicked");
+  };
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    // Redirect to login or handle login logic here
+    console.log("Login button clicked");
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -107,10 +120,19 @@ const RegistrationPage = () => {
               />
             </div>
             <button
-              type="submit"
+              type="button"
+              onClick={handleRegisterClick}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Register
+            </button>
+            <p className="text-blue-500">Already have an account?</p>
+            <button
+              type="button"
+              onClick={handleLoginClick}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              <Link to="/login">Login</Link>
             </button>
           </form>
         </div>
