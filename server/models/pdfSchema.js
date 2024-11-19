@@ -1,20 +1,25 @@
 import mongoose from "mongoose";
 
 const pdfSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    keywords: String,
-    image: {
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    pdf: {
         public_id: {
-         type: String,
-         required: true
+            type: String,
+            required: true
         },
         url: {
-         type: String,
-         required: true
+            type: String,
+            required: true
         }
-     },
-     createdBy: {
+    },
+    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         required: true
@@ -23,6 +28,6 @@ const pdfSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-})
+});
 
-export const Pdf = mongoose.model("Pdf", pdfSchema)
+export const Pdf = mongoose.model("Pdf", pdfSchema);

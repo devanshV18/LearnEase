@@ -37,7 +37,7 @@ export default function Tutorials() {
   return (
     <div className="bg-white text-black min-h-screen p-6">
       {/* Heading */}
-      <Link to="/" className="ml-5 text-md">LearnEase<sup>TM</sup></Link>
+      <Link to="/" className="ml-5 text-xl font-bold">LearnEase<sup>TM</sup></Link>
       <h1 className="text-center text-3xl md:text-5xl font-bold tracking-tight mt-12 mb-8 leading-tight">
         What's up for Learning Today? <br /> 
         <span className="text-2xl md:text-4xl font-semibold text-gray-700">Explore tutorials right here.</span>
