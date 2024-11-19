@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import regIllustration from "../assets/regIllustration.png";
+import React, { useState, useEffect } from "react";
+import registration from "../assets/registration.png";
 import { Link } from "react-router-dom";
 
+// Typing effect hook
 const useTypingEffect = (text, speed = 50) => {
-  const [displayedText, setDisplayedText] = useState('');
+  const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
     let i = 0;
@@ -22,86 +23,93 @@ const useTypingEffect = (text, speed = 50) => {
 };
 
 const RegistrationPage = () => {
-  const [userType, setUserType] = useState('');
-  const typedText = useTypingEffect("Your ultimate learning companion for students and professionals. Join us today and embark on a journey of effortless learning and growth.", 50);
+  const [userType, setUserType] = useState("");
+  const typedText = useTypingEffect(
+    "Your ultimate learning companion for students and professionals. Join us today and embark on a journey of effortless learning and growth.",
+    50
+  );
 
   const handleRegisterClick = (e) => {
     e.preventDefault();
-    // Add registration logic here
     console.log("Register button clicked");
   };
 
   const handleLoginClick = (e) => {
     e.preventDefault();
-    // Redirect to login or handle login logic here
     console.log("Login button clicked");
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen">
       {/* Left section (70%) */}
-      <div className="w-[70%] bg-stone-200 flex flex-col items-center p-8">
-        <h1 className="text-4xl font-bold mb-4">
+      <div className="md:w-[70%] flex flex-col items-center justify-center bg-white p-4 md:p-8">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           <span className="text-black">Learn</span>
-          <span className="text-blue-600">Ease</span>
+          <span className="text-black">Ease</span>
           <sup className="text-xs text-black">TM</sup>
         </h1>
-        <p className="text-xl font-bold text-black text-center max-w-2xl mb-8 h-20">
+        <p className="text-lg md:text-xl font-bold text-black text-center max-w-lg mb-8">
           {typedText}
         </p>
-        <div className="flex-grow flex items-center justify-center">
-          <img
-            src={regIllustration}
-            alt="LearnEase Platform"
-            className="w-[800px] h-[500px]"
-          />
-        </div>
+        <img
+          src={registration}
+          alt="LearnEase Platform"
+          className="w-64 h-40 md:w-96 md:h-72 object-contain"
+        />
       </div>
 
-      {/* Right section (30%) - Registration form */}
-      <div className="w-[30%] bg-white flex items-center justify-center">
-        <div className="w-full max-w-md p-8">
+      {/* Right section (30%) */}
+      <div className="md:w-[30%] flex items-center justify-center bg-white p-4 mr-3">
+        <div className="w-full max-w-md p-6">
           <h2 className="text-2xl font-bold text-center text-black mb-6">
             Register Now
           </h2>
           <form className="space-y-4">
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 placeholder="John Doe"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email
+              </label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 placeholder="john@example.com"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
               <input
                 type="password"
                 id="password"
                 name="password"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
               />
             </div>
             <div>
-              <label htmlFor="userType" className="block text-sm font-medium text-gray-700">User Type</label>
+              <label htmlFor="userType" className="block text-sm font-medium text-gray-700">
+                User Type
+              </label>
               <select
                 id="userType"
                 name="userType"
                 value={userType}
                 onChange={(e) => setUserType(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
               >
                 <option value="">Select user type</option>
                 <option value="college">College Student</option>
@@ -110,30 +118,31 @@ const RegistrationPage = () => {
               </select>
             </div>
             <div>
-              <label htmlFor="institution" className="block text-sm font-medium text-gray-700">Institution Name</label>
+              <label htmlFor="institution" className="block text-sm font-medium text-gray-700">
+                Institution Name
+              </label>
               <input
                 type="text"
                 id="institution"
                 name="institution"
                 placeholder="Enter your institution"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
               />
             </div>
             <button
               type="button"
               onClick={handleRegisterClick}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Register
             </button>
-            <p className="text-blue-500">Already have an account?</p>
-            <button
-              type="button"
-              onClick={handleLoginClick}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            <p className="text-center text-black mt-4">Already have an account?</p>
+            <Link
+              to="/login"
+              className="w-full bg-black text-white font-bold py-2 px-4 rounded inline-block text-center mt-2 focus:outline-none focus:shadow-outline"
             >
-              <Link to="/login">Login</Link>
-            </button>
+              Login
+            </Link>
           </form>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import React from 'react'
-// import { Instagram, Linkedin, Github } from 'lucide-react'
+import { FaInstagram } from "react-icons/fa6";
+import { FaLinkedinIn } from "react-icons/fa";
+import { FiGithub } from "react-icons/fi";
 
 export const Footer = () => {
   return (
@@ -8,18 +10,18 @@ export const Footer = () => {
         <div className="flex items-center justify-between">
           {/* Social Icons */}
           <div className="flex items-center space-x-4">
-            {/* <a href="#" className="hover:text-gray-300 transition-colors">
-              <Instagram size={24} />
+            <a href="#" className="hover:text-gray-300 transition-colors">
+              <FaInstagram size={24} />
               <span className="sr-only">Instagram</span>
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors">
-              <Linkedin size={24} />
+              <FaLinkedinIn size={24} />
               <span className="sr-only">LinkedIn</span>
             </a>
             <a href="#" className="hover:text-gray-300 transition-colors">
-              <Github size={24} />
+              <FiGithub size={24} />
               <span className="sr-only">GitHub</span>
-            </a> */}
+            </a>
           </div>
 
           {/* Center Text */}
