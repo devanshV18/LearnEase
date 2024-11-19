@@ -7,7 +7,9 @@ const Home = () => {
   return (
     <>
       <Navbar/>
-      <Outlet/>
+      <div>
+        The content body comes here
+      </div>
       <Footer/>
     </>
   )
