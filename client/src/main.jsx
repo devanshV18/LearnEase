@@ -10,6 +10,8 @@ import Profile from "./pages/Profile.jsx"
 import Tutorials from "./pages/Tutorials.jsx"
 import UploadNotes from './pages/UploadNotes.jsx'
 import MyNotes from "./pages/MyNotes.jsx"
+import Contact from "./pages/Contact.jsx"
+import About from './pages/About.jsx'
 import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
   {
     path: 'my-notes',
     element: <MyNotes/>
+  },
+  {
+    path: '/contact-us',
+    element: <Contact/>
+  },
+  {
+    path: '/about-us',
+    element: <About/>
   }
   
   
