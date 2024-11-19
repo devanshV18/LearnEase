@@ -11,17 +11,17 @@ const Footer = () => {
         <div className="flex justify-between items-center">
           {/* Left: Social Icons aligned horizontally */}
           <div className="flex items-center space-x-4">
-            <a href="#" className="hover:text-gray-300 transition-colors">
+            <a href="https://www.instagram.com/verma_ji_7/profilecard/?igsh=amF5NWRvZ204YmFx">
               <FaInstagram size={24} />
-              <span className="sr-only">Instagram</span>
+              {/* <span className="sr-only">Instagram</span> */}
             </a>
-            <a href="#" className="hover:text-gray-300 transition-colors">
+            <a href="https://www.linkedin.com/in/devansh-verma-822a20166/">
               <FaLinkedinIn size={24} />
-              <span className="sr-only">LinkedIn</span>
+              {/* <span className="sr-only">LinkedIn</span> */}
             </a>
-            <a href="#" className="hover:text-gray-300 transition-colors">
+            <a href="https://github.com/devanshV18" >
               <FiGithub size={24} />
-              <span className="sr-only">GitHub</span>
+              {/* <span className="sr-only">GitHub</span> */}
             </a>
           </div>
 
