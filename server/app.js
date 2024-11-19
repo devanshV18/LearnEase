@@ -5,6 +5,7 @@ import cors from "cors"
 import  fileUpload from "express-fileupload"
 import { connectDb } from "./database/connectDb.js"
 import { errorMiddleware } from "./middlewares/error.js"
+import userRouter from "./routes/userRoutes.js"
 
 const app = express()
 
@@ -30,7 +31,7 @@ app.use(fileUpload({
 )
 
 //routes
-
+app.use("/api/user", userRouter)
 //routes
 
 connectDb()
