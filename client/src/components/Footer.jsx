@@ -1,11 +1,11 @@
 import React from 'react'
-import { FaInstagram } from "react-icons/fa6";
+import { FaInstagram } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
 
-export const Footer = () => {
+const Footer = () => {
   return (
-    <footer className="bg-black text-white py-6">
+    <footer className="bg-white text-black py-6">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           {/* Social Icons */}
@@ -49,3 +49,5 @@ export const Footer = () => {
     </footer>
   )
 }
+
+export default Footer
