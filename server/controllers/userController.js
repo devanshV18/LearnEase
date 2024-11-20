@@ -2,8 +2,8 @@ import {catchAsyncErrors} from "../middlewares/catchAsyncErrors.js"
 import mongoose from "mongoose"
 import { v2 as cloudinary } from "cloudinary"
 import { generateToken } from "../utils/jwtToken.js"
-import { User } from "../models/userSchema"
-import { Pdf } from "../models/pdfSchema"
+import { User } from "../models/userSchema.js"
+import { Pdf } from "../models/pdfSchema.js"
 import ErrorHandler from "../middlewares/error.js"
 
 //register user
@@ -80,7 +80,6 @@ export const login = catchAsyncErrors( async (req, res, next ) => {
 
 
 //logout
-
 export const logout = catchAsyncErrors( async (req, res, next) => {
     res.status(200).cookie("token", "", {
         expires: new Date(Date.now()),
@@ -91,6 +90,8 @@ export const logout = catchAsyncErrors( async (req, res, next) => {
     })
 })
 
+
+//get profile of the current user
 export const getProfile = catchAsyncErrors( async (req, res, next) => {
     const id = req.user._id
 

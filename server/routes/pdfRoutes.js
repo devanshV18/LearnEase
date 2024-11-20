@@ -1,6 +1,6 @@
 import express from "express";
 import { deletePdf, getUploadedPdf, uploadPdf } from "../controllers/PdfController.js"
-import { isAuthenticated } from "../middlewares/authMiddleware.js"; // Ensure the user is logged in
+import { isAuthenticated } from "../middlewares/auth.js"; // Ensure the user is logged in
 
 const router = express.Router();
 

@@ -1,8 +1,8 @@
-import { getProfile, logout, register } from "../controllers/userController.js"
-import express from express
+import { getProfile, logout, register, login } from "../controllers/userController.js"
+import express from "express"
 import { isAuthenticated } from "../middlewares/auth.js"
 
-const router = express.router()
+const router = express.Router()
 
 
 

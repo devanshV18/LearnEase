@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import {User} from "../models/userSchema.js"
-import {Pdf} from "../models/userSchema.js"
+import {Pdf} from "../models/pdfSchema.js"
 import { v2 as cloudinary } from "cloudinary"
 import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js"
 import fs from "fs/promises"
