@@ -6,6 +6,7 @@ import  fileUpload from "express-fileupload"
 import { connectDb } from "./database/connectDb.js"
 import { errorMiddleware } from "./middlewares/error.js"
 import userRouter from "./routes/userRoutes.js"
+import pdfRouter from "./routes/pdfRoutes.js"
 
 const app = express()
 
@@ -32,6 +33,7 @@ app.use(fileUpload({
 
 //routes
 app.use("/api/user", userRouter)
+app.use("/api/pdf", pdfRouter)
 //routes
 
 connectDb()
