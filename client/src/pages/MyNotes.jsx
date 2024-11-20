@@ -2,6 +2,9 @@ import React from 'react'
 import PdfCard from '../components/PdfCard'
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import Spinner from '../components/Spinner.jsx';
+
+
 const MyNotes = () => {
   return (
     <div className="bg-gray-100 p-6 rounded-lg flex flex-col gap-3">
@@ -13,6 +16,7 @@ const MyNotes = () => {
       <div>
         <PdfCard/>
       </div>
+      <Spinner/>
     </div>
   )
 }
