@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
 export default function Navbar() {
-  const user = true
+  const user = false
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   //logout Handler
