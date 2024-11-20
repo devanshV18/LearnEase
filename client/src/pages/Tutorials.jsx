@@ -40,7 +40,7 @@ export default function Tutorials() {
       <Link to="/" className="ml-5 text-xl font-bold">LearnEase<sup>TM</sup></Link>
       <h1 className="text-center text-3xl md:text-5xl font-bold tracking-tight mt-12 mb-8 leading-tight">
         What's up for Learning Today? <br /> 
-        <span className="text-2xl md:text-4xl font-semibold text-gray-700">Explore tutorials right here.</span>
+        <span className="text-2xl md:text-4xl font-semibold text-gray-700">Explore & Watch tutorials right here.</span>
       </h1>
 
       {/* Search Bar */}
@@ -48,7 +48,7 @@ export default function Tutorials() {
         <div className="relative w-full max-w-2xl">
           <input
             type="text"
-            placeholder="Search by Videos"
+            placeholder="Search to learn"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full py-3 px-4 pr-12 text-black bg-gray-100 placeholder-gray-500 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-black focus:bg-white transition-all"

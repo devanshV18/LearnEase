@@ -26,7 +26,7 @@ const RegistrationPage = () => {
   const [userType, setUserType] = useState("");
 
   const typedText = useTypingEffect(
-    "Discover latest courses, explore tutorials, manage your notes and unlock AI-powered summarizations, all in one place!",
+    "Discover latest courses, explore tutorials, manage your notes and unlock AI-powered summarizations, all in one place! Click the Logo to Explore!",
   50
 );
 
@@ -46,8 +46,8 @@ const RegistrationPage = () => {
       {/* Left section (70%) */}
       <div className="md:w-[70%] flex flex-col items-center justify-center bg-white p-4 md:p-8">
         <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-          <span className="text-black">Learn</span>
-          <span className="text-black">Ease</span>
+          <Link to = '/'>LearnEase</Link>
+          {/* <span className="text-black">Ease</span> */}
           <sup className="text-xs text-black">TM</sup>
         </h1>
         <p className="text-lg md:text-xl font-bold text-[#c68E17] text-center max-w-lg mb-8">
