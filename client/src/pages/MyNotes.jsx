@@ -16,7 +16,7 @@ const MyNotes = () => {
       <div>
         <PdfCard/>
       </div>
-      <Spinner/>
+      {/* <Spinner/> */}
     </div>
   )
 }
