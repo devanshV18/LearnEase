@@ -9,7 +9,7 @@ const useTypingEffect = (text, speed = 50) => {
   useEffect(() => {
     let i = 0;
     const typingInterval = setInterval(() => {
-      setDisplayedText((prev) => prev + text.charAt(i));
+      setDisplayedText(text.slice(0, i + 1)); // Correctly slice text up to the current index
       i++;
       if (i >= text.length) {
         clearInterval(typingInterval);
@@ -24,10 +24,12 @@ const useTypingEffect = (text, speed = 50) => {
 
 const RegistrationPage = () => {
   const [userType, setUserType] = useState("");
+
   const typedText = useTypingEffect(
-    "Your ultimate learning companion for students and professionals. Join us today and embark on a journey of effortless learning and growth.",
-    50
-  );
+    "Discover latest courses, explore tutorials, manage your notes and unlock AI-powered summarizations, all in one place!",
+  50
+);
+
 
   const handleRegisterClick = (e) => {
     e.preventDefault();
@@ -48,7 +50,7 @@ const RegistrationPage = () => {
           <span className="text-black">Ease</span>
           <sup className="text-xs text-black">TM</sup>
         </h1>
-        <p className="text-lg md:text-xl font-bold text-black text-center max-w-lg mb-8">
+        <p className="text-lg md:text-xl font-bold text-[#c68E17] text-center max-w-lg mb-8">
           {typedText}
         </p>
         <img
