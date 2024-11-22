@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import ProfileCard from './ProfileCard.jsx'
 
 export default function Navbar() {
-  const user = false
+  const user = true
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [showProfileCard, setShowProfileCard] = useState(false)
 
   //logout Handler
   const logoutHandler = () => {
-
+    // Implement logout logic here
   }
 
   return (
@@ -28,16 +30,25 @@ export default function Navbar() {
                 <Link to="/my-notes" className="text-black hover:text-gray-700">
                   My Notes
                 </Link>
-                <Link to="/profile" className="text-black hover:text-gray-700">
+                <div 
+                  className="text-black hover:text-gray-700 cursor-pointer relative"
+                  onMouseEnter={() => setShowProfileCard(true)}
+                  onMouseLeave={() => setShowProfileCard(false)}
+                >
                   Profile
-                </Link>
+                  {showProfileCard && (
+                    <div className="absolute right-0 mt-2 z-10">
+                      <ProfileCard />
+                    </div>
+                  )}
+                </div>
               </>
             )}
             <Link to="/tutorials" className="text-black hover:text-gray-700">
               Tutorials
             </Link>
             {user ? (
-              <button onClick={logoutHandler()} className="text-black hover:text-gray-700 bg-transparent border-none cursor-pointer">
+              <button onClick={logoutHandler} className="text-black hover:text-gray-700 bg-transparent border-none cursor-pointer">
                 Logout
               </button>
             ) : (
@@ -74,9 +85,17 @@ export default function Navbar() {
               <Link to="/my-notes" className="block text-black hover:text-gray-700 px-3 py-2">
                 My Notes
               </Link>
-              <Link to="/profile" className="block text-black hover:text-gray-700 px-3 py-2">
+              <div 
+                className="block text-black hover:text-gray-700 px-3 py-2 cursor-pointer relative"
+                onClick={() => setShowProfileCard(!showProfileCard)}
+              >
                 Profile
-              </Link>
+                {showProfileCard && (
+                  <div className="absolute left-0 mt-2 z-10">
+                    <ProfileCard />
+                  </div>
+                )}
+              </div>
             </>
           )}
           <Link to="/tutorials" className="block text-black hover:text-gray-700 px-3 py-2">
@@ -101,3 +120,4 @@ export default function Navbar() {
     </nav>
   )
 }
+
