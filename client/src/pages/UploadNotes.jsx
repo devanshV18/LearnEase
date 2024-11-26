@@ -23,7 +23,7 @@ export default function UploadNotes() {
     <div className="min-h-screen bg-white text-black p-6">
       <div className="container mx-auto">
         <div className="flex items-center justify-between mb-8">
-          <Link to="/" className="ml-5 text-md font-semibold">LearnEase<sup>TM</sup></Link>  
+          <Link to="/" className="ml-5 text-xl font-bold">LearnEase<sup>TM</sup></Link>  
         </div>
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left side - Upload form */}
@@ -39,7 +39,7 @@ export default function UploadNotes() {
                   id="title"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black"
                   required
                 />
               </div>
@@ -51,7 +51,7 @@ export default function UploadNotes() {
                   id="description"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-black"
                   rows="3"
                   required
                 ></textarea>
@@ -71,7 +71,7 @@ export default function UploadNotes() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors duration-300"
+                className="w-1/3 font-semibold bg-white text-black py-2 px-4 rounded-md hover:bg-black hover:text-white"
               >
                 Upload PDF
               </button>

@@ -1,10 +1,16 @@
 import { IoDocumentOutline } from "react-icons/io5";
 
-export default function PdfCard({ 
+const PdfCard = ({ 
   title = "Introduction to React Hooks", 
   description = "A comprehensive guide to understanding and implementing React Hooks in your projects. This PDF covers useState, useEffect, useContext, and custom hooks.", 
   public_url = "https://example.com/react-hooks-guide.pdf" 
-}) {
+}) => {
+
+  const handleDelete = (e) => {
+    e.preventDefault()
+    console.log("Delete button clicked")
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center max-w-sm cursor-pointer transition-all duration-500 ease-in-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.03]">
       <IoDocumentOutline className="h-16 w-16 text-gray-400 mb-4" />
@@ -18,6 +24,13 @@ export default function PdfCard({
       >
         View PDF
       </a>
+      <button 
+      onClick={handleDelete}
+      className="mt-2 text-sm font-semibold cursor-pointer w-1/3 rounded-md bg-gray-300">
+        Delete PDF
+      </button>
     </div>
   )
 }
+
+export default PdfCard

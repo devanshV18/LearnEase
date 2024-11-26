@@ -12,7 +12,7 @@ const MyNotes = () => {
         <FaArrowLeft />
       </Link>
       <h2 className="text-2xl font-semibold mb-4">My Notes</h2>
-      <p className='text-md'>Your uploaded PDFs will appear here.</p>
+      <p className='text-md font-semibold'>Your uploaded PDFs will appear here.</p>
       <div>
         <PdfCard/>
       </div>
