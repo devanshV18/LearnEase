@@ -13,6 +13,8 @@ import Contact from "./pages/Contact.jsx"
 import About from './pages/About.jsx'
 import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
+import {Provider} from "react-redux"
+import { store } from './store/store.js'
 
 
 
@@ -56,20 +58,22 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* l3 routing, creating a route provider and passing the context of the route to the main */}
-    <RouterProvider router={router}/> 
+    <Provider store={store}>
+          {/* l3 routing, creating a route provider and passing the context of the route to the main */}
+          <RouterProvider router={router}/> 
 
-    <ToastContainer
-      position="top-right"
-      autoClose={4000} 
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      theme="light"
-    />
+          <ToastContainer
+            position="top-right"
+            autoClose={4000} 
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+      </Provider>
   </React.StrictMode>,
 )
