@@ -15,10 +15,12 @@ export const register = catchAsyncErrors( async (req, res, next) => {
 
 
     const { profileImage } = req.files
-    const allowedFormats = ["image/png", "image/jpeg", "image/webp"]
+    if(profileImage){
+        const allowedFormats = ["image/png", "image/jpeg", "image/webp", "image/jpg"]
 
-    if( ! allowedFormats.includes(profileImage.mimeType) ){
-        return next( new ErrorHandler("FIle format is not supported, please upload a png, jpeg or webp file"), 400)
+        if( ! allowedFormats.includes(profileImage.mimetype) ){
+            return next( new ErrorHandler("File format is not supported, please upload a png, jpeg or webp file"), 400)
+        }
     }
 
     const { userName, email, password, role, institutionName } = req.body
