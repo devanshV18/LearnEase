@@ -17,7 +17,9 @@ const pdfSchema = new mongoose.Schema({
         url: {
             type: String,
             required: true
-        }
+        },
+        size: Number,
+        originalName: String
     },
     createdBy: {
         type: mongoose.Schema.Types.ObjectId,

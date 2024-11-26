@@ -6,52 +6,112 @@ import { catchAsyncErrors } from "../middlewares/catchAsyncErrors.js"
 import fs from "fs/promises"
 import ErrorHandler from "../middlewares/error.js"
 
-export const uploadPdf = async (req, res, next) => {
-    try {
-      // Ensure file is uploaded
-      if (!req.files || !req.files.pdfFile) {
-        return next(new ErrorHandler('Please Upload your PDF File.'))
-      }
-  
-      const pdfFile = req.files.pdfFile;
-  
-      // Validate file type
-      if (pdfFile.mimetype !== "application/pdf") {
-        return next(new ErrorHandler("The file format is not supported. Pleasy upload a PDF file"))
-      }
-  
-      // Upload to Cloudinary
-      const result = await cloudinary.v2.uploader.upload(pdfFile.tempFilePath, {
-        resource_type: "raw",
-        folder: "pdfs"
-      });
-  
-      // Save details to MongoDB
-      const newPdf = await Pdf.create({
-        title: req.body.title,
-        description: req.body.description,
-        createdBy: req.user.id, // Assuming req.user is set by your auth middleware
-        pdf: {
-          public_id: result.public_id,
-          url: result.secure_url,
-        },
-      });
-  
-      // Delete the temporary file
-      await fs.unlink(pdfFile.tempFilePath);
-  
-      res.status(201).json({
-        message: "PDF uploaded successfully!",
-        pdf: newPdf,
-      });
-    } catch (error) {
-      console.error("Error uploading PDF:", error);
-  
-      // Send a 500 response with the error message
-      res.status(500).json({ message: "Server error!", error: error.message });
-    }
-  };
 
+export const uploadPdf = async (req, res, next) => {
+  try {
+    // Check if file exists in request
+    if (!req.files || !req.files.pdfFile) {
+      return next(new ErrorHandler('Please upload your PDF file.', 400));
+    }
+
+    const { pdfFile } = req.files;
+    const { title, description } = req.body;
+
+    // Validate file type
+    if (pdfFile.mimetype !== 'application/pdf') {
+      return next(new ErrorHandler('Please upload only PDF files.', 400));
+    }
+
+    // Validate file size (limit to 10MB)
+    const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+    if (pdfFile.size > maxSize) {
+      return next(new ErrorHandler('PDF file size must be less than 10MB.', 400));
+    }
+
+    // Validate required fields
+    if (!title || !description) {
+      return next(new ErrorHandler('Title and description are required.', 400));
+    }
+
+    // Configure cloudinary upload options
+    const cloudinaryOptions = {
+      resource_type: 'auto',
+      folder: 'pdfs',
+      public_id: `${Date.now()}-${pdfFile.name.replace(/\.[^/.]+$/, '')}`,
+      format: 'pdf',
+      type: 'upload'
+    };
+
+    // Upload to Cloudinary
+    const cloudinaryResponse = await cloudinary.uploader.upload(
+      pdfFile.tempFilePath,
+      cloudinaryOptions
+    );
+
+    // Create a delivery URL that forces download
+    const deliveryUrl = cloudinary.url(cloudinaryResponse.public_id, {
+      resource_type: 'raw',
+      format: 'pdf',
+      flags: 'attachment'
+    });
+
+    // Create PDF document in database
+    const pdfDocument = await Pdf.create({
+      title: title.trim(),
+      description: description.trim(),
+      createdBy: req.user.id,
+      pdf: {
+        public_id: cloudinaryResponse.public_id,
+        url: deliveryUrl,
+        size: pdfFile.size,
+        originalName: pdfFile.name
+      },
+      uploadedAt: new Date()
+    });
+
+    // Clean up: Remove temporary file
+    try {
+      await fs.unlink(pdfFile.tempFilePath);
+    } catch (unlinkError) {
+      console.error('Error removing temp file:', unlinkError);
+    }
+
+    // Send success response
+    res.status(201).json({
+      success: true,
+      message: 'PDF uploaded successfully',
+      data: {
+        pdf: {
+          id: pdfDocument._id,
+          title: pdfDocument.title,
+          description: pdfDocument.description,
+          url: pdfDocument.pdf.url,
+          public_id: pdfDocument.pdf.public_id,
+          size: pdfDocument.pdf.size,
+          originalName: pdfDocument.pdf.originalName,
+          uploadedAt: pdfDocument.uploadedAt
+        }
+      }
+    });
+
+  } catch (error) {
+    // Clean up temp file in case of error
+    if (req.files?.pdfFile?.tempFilePath) {
+      try {
+        await fs.unlink(req.files.pdfFile.tempFilePath);
+      } catch (unlinkError) {
+        console.error('Error removing temp file after failure:', unlinkError);
+      }
+    }
+
+    // If it's a Cloudinary error, handle it specifically
+    if (error.http_code) {
+      return next(new ErrorHandler(`Cloudinary Error: ${error.message}`, error.http_code));
+    }
+
+    return next(new ErrorHandler(error.message || 'Error uploading PDF', 500));
+  }
+};
 
 export const deletePdf = async (req, res) => {
     try {
