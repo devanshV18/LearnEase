@@ -1,17 +1,24 @@
-import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import ProfileCard from './ProfileCard.jsx'
+import { logout } from '../store/slices/UserSlice.js'
+import { useDispatch, useSelector } from 'react-redux'
 
 export default function Navbar() {
-  const user = true
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [showProfileCard, setShowProfileCard] = useState(false)
 
+  const {user, isAuthenticated} = useSelector((state) => state.user)
+
+  const dispatch = useDispatch()
+  const navigateTo = useNavigate()
+
   //logout Handler
   const logoutHandler = () => {
-    // Implement logout logic here
+    dispatch(logout())
   }
 
+  
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,7 +29,8 @@ export default function Navbar() {
             </Link>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-4">
-            {user && (
+
+            {user && isAuthenticated && (
               <>
                 <Link to="/upload-notes" className="text-black hover:text-gray-700">
                   Upload Notes
@@ -47,7 +55,7 @@ export default function Navbar() {
             <Link to="/tutorials" className="text-black hover:text-gray-700">
               Tutorials
             </Link>
-            {user ? (
+            {user && isAuthenticated ? (
               <button onClick={logoutHandler} className="text-black hover:text-gray-700 bg-transparent border-none cursor-pointer">
                 Logout
               </button>

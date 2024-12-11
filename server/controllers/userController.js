@@ -97,9 +97,9 @@ export const logout = catchAsyncErrors( async (req, res, next) => {
 export const getProfile = catchAsyncErrors( async (req, res, next) => {
     const id = req.user._id
 
-    const userProfile = await User.findById(id)
+    const user = await User.findById(id)
     return res.status(200).json({
         success: true,
-        userProfile
+        user
     })
 })

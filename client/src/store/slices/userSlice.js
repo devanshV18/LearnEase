@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios"
 import {toast} from "react-toastify"
 
+
 const userSlice = createSlice({
     name: "user",
     initialState: {
@@ -57,7 +58,7 @@ const userSlice = createSlice({
         fetchUserSuccess(state,action){
             state.loading = false;
             state.isAuthenticated = true,
-            state.user = action.payload
+            state.user = action.payload.user
         },
 
         fetchUserFailed(state,action){
@@ -98,15 +99,15 @@ export const register = (data) => async (dispatch) => {
                 headers: { "Content-Type": "multipart/form-data" }
             }
         )
-
-        dispatch(userSlice.actions.registerSuccess(response.user))
+        console.log(response)
+        dispatch(userSlice.actions.registerSuccess(response?.data?.user))
         toast.success(response.data.message)
         dispatch(userSlice.actions.clearAllErrors())
 
     } catch (error) {
 
         dispatch(userSlice.actions.registerFailed())
-        toast.error(error.response.data.message)
+        toast.error(error.response?.data?.message)
         dispatch(userSlice.actions.clearAllErrors())
 
     }
@@ -121,7 +122,7 @@ export const login = (data) => async (dispatch) => {
             data, 
             {
                 withCredentials: true,
-                headers: { "Content-Type": "application/json" }
+                headers: { "Content-Type": "multipart/form-data" }
             }
         )
 
@@ -164,7 +165,7 @@ export const fetchUser = () => async(dispatch) => {
             } 
         )
 
-        dispatch(userSlice.actions.fetchUserSuccess(response.data.user))
+        dispatch(userSlice.actions.fetchUserSuccess(response?.data?.user))
         dispatch(userSlice.actions.clearAllErrors())
 
     } catch (error) {

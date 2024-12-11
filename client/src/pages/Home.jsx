@@ -1,13 +1,25 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const {user, isAuthenticated} = useSelector((state) => state.user)
+
+  const navigateTo = useNavigate()
+  const dispatch = useDispatch()
+  
+  useEffect(() => {
+    if(!isAuthenticated){
+      navigateTo('/login')
+    }
+  }, [isAuthenticated])
 
   const fetchCourses = async (query) => {
     if (!query.trim()) return;

@@ -61,6 +61,13 @@ const RegistrationPage = () => {
     formData.append("institutionName", institutionName)
 
     dispatch(register(formData))
+    setUserName("")
+    setEmail("")
+    setPassword("")
+    setInstitutionName("")
+    setProfileImage("")
+    setRole("")
+    setProfileImagePreview("")
   };
 
   //useeffect navigation
@@ -68,7 +75,7 @@ const RegistrationPage = () => {
     if(isAuthenticated){
       navigateTo('/')
     }
-  }, [dispatch, loading, isAuthenticated])
+  }, [isAuthenticated])
 
 
   //image uplaod
@@ -89,33 +96,32 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="flex flex-col md:flex-row h-screen overflow-hidden">
       {/* Left section (70%) */}
-      <div className="md:w-[70%] flex flex-col items-center justify-center bg-white p-4 md:p-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+      <div className="md:w-[70%] flex flex-col items-center justify-center bg-white p-4 md:p-8 overflow-y-auto">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-4 text-center">
           <Link to="/">LearnEase</Link>
           <sup className="text-xs text-black">TM</sup>
         </h1>
-        <p className="text-lg md:text-xl font-bold text-[#c68E17] text-center max-w-lg mb-8">
+        <p className="text-sm md:text-base lg:text-lg font-bold text-[#c68E17] text-center max-w-lg mb-4 md:mb-6">
           {typedText}
         </p>
         <img
           src={registration}
           alt="LearnEase Platform"
-          className="w-64 h-40 md:w-96 md:h-72 object-contain"
+          className="w-48 h-32 md:w-64 md:h-40 lg:w-80 lg:h-56 object-contain"
         />
       </div>
 
       {/* Right section (30%) */}
-      <div className="md:w-[30%] flex items-center justify-center bg-white p-4 mr-3">
-        <div className="w-full max-w-md p-6">
-          <h2 className="text-2xl font-bold text-center text-black mb-6">
+      <div className="md:w-[30%] flex items-center justify-center bg-white p-4 h-screen">
+        <div className="w-full max-w-md p-4 md:p-6">
+          <h2 className="text-xl md:text-2xl font-bold text-center text-black mb-4">
             Register Now
           </h2>
-          <form onSubmit={handleRegisterClick} className="space-y-4">
-            <div className="flex flex-col items-center mb-4">
-
-              <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
+          <form onSubmit={handleRegisterClick} className="space-y-2 md:space-y-4">
+            <div className="flex flex-col items-center mb-2 md:mb-4">
+              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-gray-200">
                 {profileImagePreview ? (
                   <img
                     src={profileImagePreview}
@@ -123,7 +129,7 @@ const RegistrationPage = () => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="flex items-center justify-center w-full h-full text-4xl text-gray-400">
+                  <div className="flex items-center justify-center w-full h-full text-2xl md:text-4xl text-gray-400">
                     +
                   </div>
                 )}
@@ -139,13 +145,13 @@ const RegistrationPage = () => {
               <button
                 type="button"
                 onClick={handleEditClick}
-                className="mt-2 px-4 py-2 font-semibold text-md"
+                className="mt-1 md:mt-2 px-2 py-1 md:px-4 md:py-2 font-semibold text-sm md:text-md"
               >
                 {profileImage ? <MdEdit/> : <MdEdit />} 
               </button>
             </div>
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="name" className="block text-xs md:text-sm font-medium text-gray-700">
                 Name
               </label>
               <input
@@ -155,11 +161,11 @@ const RegistrationPage = () => {
                 id="name"
                 name="name"
                 placeholder="John Doe"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
+                className="mt-1 block w-full px-2 py-1 md:px-3 md:py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-sm"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-xs md:text-sm font-medium text-gray-700">
                 Email
               </label>
               <input
@@ -169,11 +175,11 @@ const RegistrationPage = () => {
                 id="email"
                 name="email"
                 placeholder="john@example.com"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
+                className="mt-1 block w-full px-2 py-1 md:px-3 md:py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-sm"
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="password" className="block text-xs md:text-sm font-medium text-gray-700">
                 Password
               </label>
               <input
@@ -182,20 +188,19 @@ const RegistrationPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 id="password"
                 name="password"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
+                className="mt-1 block w-full px-2 py-1 md:px-3 md:py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-sm"
               />
             </div>
             <div>
-              <label htmlFor="userType" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="userType" className="block text-xs md:text-sm font-medium text-gray-700">
                 What describes you best?
               </label>
-
               <select
                 id="userType"
                 value={role}
                 onChange = {(e) => setRole(e.target.value)}
                 name="userType"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
+                className="mt-1 block w-full px-2 py-1 md:px-3 md:py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-sm"
               >
                 <option value="">Select user type</option>
                 <option value="High School Student">High School Student</option>
@@ -206,7 +211,7 @@ const RegistrationPage = () => {
               </select>
             </div>
             <div>
-              <label htmlFor="institution" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="institution" className="block text-xs md:text-sm font-medium text-gray-700">
                 Institution Name
               </label>
               <input
@@ -216,20 +221,20 @@ const RegistrationPage = () => {
                 value={institutionName}
                 onChange={(e) => setInstitutionName(e.target.value)}
                 placeholder="Enter your institution"
-                className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black"
+                className="mt-1 block w-full px-2 py-1 md:px-3 md:py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-sm"
               />
             </div>
             <button
               type="submit"
               onClick={handleRegisterClick}
-              className="w-full bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="w-full bg-black text-white font-bold py-1 md:py-2 px-2 md:px-4 rounded focus:outline-none focus:shadow-outline text-sm"
             >
               {loading ? <Spinner/> : "Register"}
             </button>
-            <p className="text-center text-black mt-4">Already have an account?</p>
+            <p className="text-center text-black mt-2 md:mt-4 text-xs md:text-sm">Already have an account?</p>
             <Link
               to="/login"
-              className="w-full bg-black text-white font-bold py-2 px-4 rounded inline-block text-center mt-2 focus:outline-none focus:shadow-outline"
+              className="w-full bg-black text-white font-bold py-1 md:py-2 px-2 md:px-4 rounded inline-block text-center mt-1 md:mt-2 focus:outline-none focus:shadow-outline text-sm"
             >
               Login
             </Link>
@@ -241,3 +246,4 @@ const RegistrationPage = () => {
 };
 
 export default RegistrationPage;
+

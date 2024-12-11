@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDOM from "react-dom/client"
 import './index.css' //mandatory
 import {createBrowserRouter, RouterProvider} from "react-router-dom" //l1 routing
@@ -15,8 +15,8 @@ import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import {Provider} from "react-redux"
 import { store } from './store/store.js'
-
-
+import { fetchUser } from './store/slices/UserSlice.js'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const router = createBrowserRouter([
@@ -53,19 +53,34 @@ const router = createBrowserRouter([
     path: '/about-us',
     element: <About/>
   }
-  
-  
 ]) //l2 routing
+
+const AppInitializer = ({ children }) => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector(state => state.user);
+
+  useEffect(() => {
+    dispatch(fetchUser()); // Check authentication state on app load
+  }, [dispatch]);
+
+  if (loading) {
+    return <div className="loading-screen">Loading...</div>; // Add a better loading screen as needed
+  }
+
+  return children;
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
           {/* l3 routing, creating a route provider and passing the context of the route to the main */}
-          <RouterProvider router={router}/> 
+      
+            <RouterProvider router={router}/> 
+         
 
           <ToastContainer
             position="top-right"
-            autoClose={4000} 
+            autoClose={2000} 
             hideProgressBar={false}
             newestOnTop={false}
             closeOnClick

@@ -1,15 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import {useSelector, useDispatch} from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { login } from '../store/slices/UserSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const {isAuthenticated, loading} = useSelector((state) => state.user)
+  const navigateTo = useNavigate()
+  const dispatch = useDispatch()
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your login logic here
-    console.log('Login attempted with:', email, password);
+    
+    const formData = new FormData()
+
+    formData.append("email", email)
+    formData.append("password", password)
+
+    dispatch(login(formData))
+    
   };
+
+  useEffect(() => {
+    if(isAuthenticated){
+      navigateTo('/')
+    }
+  }, [isAuthenticated, dispatch, loading])
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4 py-12">
