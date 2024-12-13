@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ReactDOM from "react-dom/client"
-import './index.css' //mandatory
-import {createBrowserRouter, RouterProvider} from "react-router-dom" //l1 routing
+import './index.css'
+import {createBrowserRouter, RouterProvider, useNavigate} from "react-router-dom"
 import RegistrationPage from "./pages/RegistrationPage.jsx"
 import Error from "./components/Error.jsx"
 import Login from "./pages/Login.jsx"
@@ -17,12 +17,48 @@ import {Provider} from "react-redux"
 import { store } from './store/store.js'
 import { fetchUser } from './store/slices/UserSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 
+// Create protected route wrapper
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useSelector(state => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/login');
+    }
+  }, [isAuthenticated, navigate]);
+
+  return isAuthenticated ? children : null;
+};
+
+// Auth wrapper component
+const AuthWrapper = ({ children }) => {
+  const dispatch = useDispatch();
+  const { loading } = useSelector(state => state.user);
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
+  if (loading) {
+    return <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+    </div>;
+  }
+
+  return children;
+};
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home/>,
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/register',
@@ -35,61 +71,70 @@ const router = createBrowserRouter([
   },
   {
     path: '/tutorials',
-    element: <Tutorials/>
+    element: (
+      <ProtectedRoute>
+        <Tutorials/>
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/upload-notes',
-    element: <UploadNotes/>,
+    element: (
+      <ProtectedRoute>
+        <UploadNotes/>
+      </ProtectedRoute>
+    ),
   },
   {
-    path: 'my-notes',
-    element: <MyNotes/>
+    path: '/my-notes',
+    element: (
+      <ProtectedRoute>
+        <MyNotes/>
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/contact-us',
-    element: <Contact/>
+    element: (
+      <ProtectedRoute>
+        <Contact/>
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/about-us',
-    element: <About/>
+    element: (
+      <ProtectedRoute>
+        <About/>
+      </ProtectedRoute>
+    ),
   }
-]) //l2 routing
+])
 
-const AppInitializer = ({ children }) => {
-  const dispatch = useDispatch();
-  const { loading } = useSelector(state => state.user);
-
-  useEffect(() => {
-    dispatch(fetchUser()); // Check authentication state on app load
-  }, [dispatch]);
-
-  if (loading) {
-    return <div className="loading-screen">Loading...</div>; // Add a better loading screen as needed
-  }
-
-  return children;
+const Root = () => {
+  return (
+    <Provider store={store}>
+      <AuthWrapper>
+        <RouterProvider router={router} />
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </AuthWrapper>
+    </Provider>
+  );
 };
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Provider store={store}>
-          {/* l3 routing, creating a route provider and passing the context of the route to the main */}
-      
-            <RouterProvider router={router}/> 
-         
-
-          <ToastContainer
-            position="top-right"
-            autoClose={2000} 
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-      </Provider>
-  </React.StrictMode>,
+    <Root />
+  </React.StrictMode>
 )

@@ -1,23 +1,18 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchUser } from '../store/slices/UserSlice';
+import React from 'react';
+import { useSelector} from 'react-redux';
 
 const ProfileCard = () => {
 
-  const {user, isAuthenticated, loading} = useSelector((state) => state.user)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(fetchUser())
-  }, [dispatch, isAuthenticated, loading])
+  const {user} = useSelector((state) => state.user)
+  
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md w-64 border border-gray-200">
       <div className="flex flex-col items-center">
         <div className="w-20 h-20 mb-3 rounded-full overflow-hidden">
-          <img
+        <img
             src={user?.profileImage?.url}
-            alt={name}
+            alt={user?.userName || 'Profile'}
             className="w-full h-full object-cover"
           />
         </div>

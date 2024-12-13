@@ -158,21 +158,22 @@ export const fetchUser = () => async(dispatch) => {
     dispatch(userSlice.actions.fetchUserRequest()) 
     try {
         const response = await axios.get(
-
             "http://localhost:7000/api/user/getprofile", 
             { 
-                withCredentials: true
+                withCredentials: true,
+                headers: {
+                    'Cache-Control': 'no-cache',
+                    'Pragma': 'no-cache',
+                    'Expires': '0',
+                }
             } 
         )
 
-        dispatch(userSlice.actions.fetchUserSuccess(response?.data?.user))
-        dispatch(userSlice.actions.clearAllErrors())
-
+        dispatch(userSlice.actions.fetchUserSuccess(response.data))
+        
     } catch (error) {
-
         dispatch(userSlice.actions.fetchUserFailed())
-        dispatch(userSlice.actions.clearAllErrors())
-        console.log(error)
+        console.error("Fetch user error:", error)
     }
 }
 

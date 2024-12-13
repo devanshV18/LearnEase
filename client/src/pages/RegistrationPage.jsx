@@ -30,7 +30,7 @@ const useTypingEffect = (text, speed = 50) => {
 const RegistrationPage = () => {
 
   const typedText = useTypingEffect(
-    "Discover latest courses, explore tutorials, manage your notes and unlock AI-powered summarizations, all in one place! Click the Logo to Explore!",
+    "Your one stop Learning Companion. Explore Tutorials, curate mind maps, schedule your tasks, generate stats for your data and save your notes and summarize them anytime using AI.",
     50
   );
 

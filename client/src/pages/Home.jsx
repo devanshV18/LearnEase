@@ -4,6 +4,8 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../store/slices/UserSlice";
+import { use } from "react";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -14,12 +16,14 @@ const Home = () => {
 
   const navigateTo = useNavigate()
   const dispatch = useDispatch()
+
   
-  useEffect(() => {
-    if(!isAuthenticated){
-      navigateTo('/login')
-    }
-  }, [isAuthenticated])
+  
+  // useEffect(() => {
+  //   if(!isAuthenticated){
+  //     navigateTo('/login')
+  //   }
+  // }, [isAuthenticated])
 
   const fetchCourses = async (query) => {
     if (!query.trim()) return;
