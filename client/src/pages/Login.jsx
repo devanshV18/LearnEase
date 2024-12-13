@@ -68,6 +68,7 @@ const Login = () => {
               <input
                 id="password"
                 type="password"
+                autoComplete="new-password"
                 required
                 className="w-full px-3 py-2 border border-gray-200 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-colors"
                 placeholder="Enter your password"

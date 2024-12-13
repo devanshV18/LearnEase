@@ -126,14 +126,14 @@ export const login = (data) => async (dispatch) => {
             }
         )
 
-        dispatch(userSlice.actions.loginSuccess(response.data))
-        toast.success(response.data.message)
+        dispatch(userSlice.actions.loginSuccess(response?.data))
+        toast.success(response?.data?.message)
         dispatch(userSlice.actions.clearAllErrors())
 
     } catch (error) {
 
         dispatch(userSlice.actions.loginFailed())
-        toast.error(error.response.data.message)
+        toast.error(error.response?.data?.message)
         dispatch(userSlice.actions.clearAllErrors())
 
     }
@@ -158,22 +158,21 @@ export const fetchUser = () => async(dispatch) => {
     dispatch(userSlice.actions.fetchUserRequest()) 
     try {
         const response = await axios.get(
-            "http://localhost:7000/api/user/getprofile", 
+
+            "http://localhost:5000/api/users/me", 
             { 
-                withCredentials: true,
-                headers: {
-                    'Cache-Control': 'no-cache',
-                    'Pragma': 'no-cache',
-                    'Expires': '0',
-                }
+                withCredentials: true
             } 
         )
 
-        dispatch(userSlice.actions.fetchUserSuccess(response.data))
-        
+        dispatch(userSlice.actions.fetchUserSuccess(response.data.user))
+        dispatch(userSlice.actions.clearAllErrors())
+
     } catch (error) {
+
         dispatch(userSlice.actions.fetchUserFailed())
-        console.error("Fetch user error:", error)
+        dispatch(userSlice.actions.clearAllErrors())
+        console.log(error)
     }
 }
 

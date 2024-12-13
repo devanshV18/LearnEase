@@ -188,6 +188,7 @@ const RegistrationPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 id="password"
                 name="password"
+                autoComplete="new-password"
                 className="mt-1 block w-full px-2 py-1 md:px-3 md:py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-black focus:border-black text-sm"
               />
             </div>
