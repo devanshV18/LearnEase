@@ -61,14 +61,17 @@ const RegistrationPage = () => {
     formData.append("institutionName", institutionName)
 
     dispatch(register(formData))
-    setUserName("")
-    setEmail("")
-    setPassword("")
-    setInstitutionName("")
-    setProfileImage("")
-    setRole("")
-    setProfileImagePreview("")
+    // setUserName("")
+    // setEmail("")
+    // setPassword("")
+    // setInstitutionName("")
+    // setProfileImage("")
+    // setRole("")
+    // setProfileImagePreview("")
   };
+
+  const { user } = useSelector((state) => state.user || { user: {} });
+  const isUserLoggedIn = user && Object.keys(user).length > 0;
 
   //useeffect navigation
   useEffect(() => {

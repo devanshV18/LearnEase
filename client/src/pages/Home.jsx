@@ -4,30 +4,29 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../store/slices/UserSlice";
-import { use } from "react";
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
+
+
 
   const {user, isAuthenticated} = useSelector((state) => state.user)
 
   const navigateTo = useNavigate()
-  const dispatch = useDispatch()
 
-  
-  
-  // useEffect(() => {
-  //   if(!isAuthenticated){
-  //     navigateTo('/login')
-  //   }
-  // }, [isAuthenticated])
+  useEffect(() => {
+   
+    if(!isAuthenticated && Object.keys(user).length == 0){
+      navigateTo('/login')
+    }
+  }, [user, isAuthenticated])
+
 
   const fetchCourses = async (query) => {
     if (!query.trim()) return;
-    setLoading(true);
+    setisLoading(true);
     try {
       const apiKey = "AIzaSyCV_WeXbcUHprPdS_1GmAIKoHxEWKMVIrA";
       const endpoint = `https://kgsearch.googleapis.com/v1/entities:search?query=${encodeURIComponent(
@@ -53,7 +52,7 @@ const Home = () => {
       console.error("Error fetching courses:", error);
       setResults([]);
     } finally {
-      setLoading(false);
+      setisLoading(false);
     }
   };
 
@@ -96,8 +95,8 @@ const Home = () => {
             </div>
           </form>
 
-          {loading && (
-            <p className="text-center text-gray-500">Loading courses...</p>
+          {isLoading && (
+            <p className="text-center text-gray-500">isLoading courses...</p>
           )}
           <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {results.map((result) => (
@@ -128,7 +127,7 @@ const Home = () => {
                 </a>
               </div>
             ))}
-            {results.length === 0 && !loading && (
+            {results.length === 0 && !isLoading && (
               <p className="text-center text-gray-500">
                 No results found. Try a different search.
               </p>

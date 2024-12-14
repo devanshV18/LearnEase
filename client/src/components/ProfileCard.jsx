@@ -1,10 +1,9 @@
-import React from 'react';
-import { useSelector} from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const ProfileCard = () => {
 
-  const {user} = useSelector((state) => state.user)
-  
+const user = useSelector((state) => state.user)
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md w-64 border border-gray-200">

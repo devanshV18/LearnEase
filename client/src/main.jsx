@@ -1,9 +1,8 @@
 import React from 'react'
 import ReactDOM from "react-dom/client"
 import './index.css'
-import {createBrowserRouter, RouterProvider, useNavigate} from "react-router-dom"
+import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import RegistrationPage from "./pages/RegistrationPage.jsx"
-import Error from "./components/Error.jsx"
 import Login from "./pages/Login.jsx"
 import Home from "./pages/Home.jsx"
 import Tutorials from "./pages/Tutorials.jsx"
@@ -15,55 +14,18 @@ import {ToastContainer} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import {Provider} from "react-redux"
 import { store } from './store/store.js'
-import { fetchUser } from './store/slices/UserSlice.js'
-import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from 'react'
 
-// Create protected route wrapper
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useSelector(state => state.user);
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('/login');
-    }
-  }, [isAuthenticated, navigate]);
 
-  return isAuthenticated ? children : null;
-};
-
-// Auth wrapper component
-const AuthWrapper = ({ children }) => {
-  const dispatch = useDispatch();
-  const { loading } = useSelector(state => state.user);
-
-  useEffect(() => {
-    dispatch(fetchUser());
-  }, [dispatch]);
-
-  if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-    </div>;
-  }
-
-  return children;
-};
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <ProtectedRoute>
-        <Home />
-      </ProtectedRoute>
-    ),
+    element: <Home /> 
   },
   {
     path: '/register',
     element: <RegistrationPage/>,
-    errorElement: <Error/>,
   },
   {
     path: '/login',
@@ -71,50 +33,29 @@ const router = createBrowserRouter([
   },
   {
     path: '/tutorials',
-    element: (
-      <ProtectedRoute>
-        <Tutorials/>
-      </ProtectedRoute>
-    ),
+    element: <Tutorials/>
   },
   {
     path: '/upload-notes',
-    element: (
-      <ProtectedRoute>
-        <UploadNotes/>
-      </ProtectedRoute>
-    ),
+    element: <UploadNotes/>
   },
   {
     path: '/my-notes',
-    element: (
-      <ProtectedRoute>
-        <MyNotes/>
-      </ProtectedRoute>
-    ),
+    element: <MyNotes/>
   },
   {
     path: '/contact-us',
-    element: (
-      <ProtectedRoute>
-        <Contact/>
-      </ProtectedRoute>
-    ),
+    element: <Contact/>
   },
   {
     path: '/about-us',
-    element: (
-      <ProtectedRoute>
-        <About/>
-      </ProtectedRoute>
-    ),
+    element: <About/>
   }
 ])
 
 const Root = () => {
   return (
     <Provider store={store}>
-      <AuthWrapper>
         <RouterProvider router={router} />
         <ToastContainer
           position="top-right"
@@ -128,7 +69,6 @@ const Root = () => {
           pauseOnHover
           theme="light"
         />
-      </AuthWrapper>
     </Provider>
   );
 };
